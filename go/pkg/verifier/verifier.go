@@ -217,6 +217,10 @@ func verifyAttest(attest *tpm2.TPMSAttest) error {
 		return fmt.Errorf("%w: unexpected prefix %0x", ErrInvalidAttestation, attest.Magic)
 	}
 
+	if attest.Type != tpm2.TPMSTAttestCertify {
+		return fmt.Errorf("%w: unexpected attestation type %0x", ErrInvalidAttestation, attest.Type)
+	}
+
 	// TODO: check qualified signer?
 
 	return nil
